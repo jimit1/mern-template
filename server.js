@@ -10,13 +10,16 @@ mongoose
   .connect(MONGODB_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
-    useFindAndModify: false
+    useFindAndModify: false,
   })
   .then(() => console.log("you are connected to mongodb"))
-  .catch(err => console.log(err));
+  .catch((err) => console.log(err));
 
 if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));
+  app.get("*", (req, res) => {
+    res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
+  });
 }
 
 app.use(express.urlencoded({ extended: true }));

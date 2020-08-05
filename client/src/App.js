@@ -3,9 +3,9 @@ import "./App.css";
 import axios from "axios";
 
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
-import About from "./components/About";
-import Users from "./components/Users";
-import Home from "./components/Home";
+import Edit from "./components/pages/Edit";
+import Delete from "./components/pages/Delete";
+import Home from "./components/pages/Home";
 
 function App() {
   useEffect(() => {
@@ -19,31 +19,24 @@ function App() {
       .then((response) => console.log(response))
       .catch((err) => console.log(err));
   });
+
   return (
     <Router>
       <div>
         <nav>
           <ul>
             <li>
-              <Link to="/">Home</Link>
-            </li>
-            <li>
-              <Link to="/about">About</Link>
-            </li>
-            <li>
-              <Link to="/users">Users</Link>
+              <Link to="/">Tasks</Link>
             </li>
           </ul>
         </nav>
 
-        {/* A <Switch> looks through its children <Route>s and
-        renders the first one that matches the current URL. */}
         <Switch>
-          <Route path="/about">
-            <About />
+          <Route path="/edit/:id">
+            <Edit />
           </Route>
-          <Route path="/users">
-            <Users />
+          <Route path="/delete/:id">
+            <Delete />
           </Route>
           <Route path="/">
             <Home />

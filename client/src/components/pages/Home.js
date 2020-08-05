@@ -14,8 +14,8 @@ const Home = () => {
   };
 
   const handleChange = (e) => {
-    const text = e.target.value;
-    setState({ ...state, text });
+    // const text = e.target.value;
+    setState({ ...state, [e.target.name]: e.target.value });
     console.log(state);
   };
 
@@ -35,6 +35,7 @@ const Home = () => {
                 type="text"
                 className="validate input-large"
                 style={styles.text}
+                name={"text"}
                 onChange={handleChange}
               />
               <label htmlFor="text">Text</label>

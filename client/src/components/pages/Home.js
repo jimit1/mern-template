@@ -39,6 +39,7 @@ const Home = () => {
                 name={"text"}
                 onChange={handleChange}
               />
+
               <label htmlFor="text">Text</label>
             </div>
           </div>
@@ -53,16 +54,16 @@ const Home = () => {
       {/* Tasks display */}
 
       <div className="row" style={styles.spaceTop}>
-        <div class="card ">
-          <div class="card-content">
-            <span class="card-title">Card Title</span>
+        <div className="card ">
+          <div className="card-content">
+            <span className="card-title">Todo item</span>
             <p>
               I am a very simple card. I am good at containing small bits of
               information. I am convenient because I require little markup to
               use effectively.
             </p>
           </div>
-          <div class="card-action">
+          <div className="card-action">
             <div className="input-field">
               <button
                 className="btn waves-effect waves-light green"

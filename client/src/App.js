@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import "./App.css";
 import axios from "axios";
 
@@ -6,30 +6,21 @@ import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import Edit from "./components/pages/Edit";
 import Delete from "./components/pages/Delete";
 import Home from "./components/pages/Home";
+import Nav from "./components/Nav/Nav";
 
 function App() {
+  const [tasks, setTasks] = useState();
   useEffect(() => {
     axios
-      .get("/example")
-      .then((response) => console.log(response))
-      .catch((err) => console.log(err));
-
-    axios
       .get("/all")
-      .then((response) => console.log(response))
+      .then((response) => setTasks(response.data))
       .catch((err) => console.log(err));
-  });
+  }, []);
 
   return (
     <Router>
       <div>
-        <nav>
-          <ul>
-            <li>
-              <Link to="/">Tasks</Link>
-            </li>
-          </ul>
-        </nav>
+        <Nav links={[<Link to="/">Home</Link>, <Link to="/">About</Link>]} />
 
         <Switch>
           <Route path="/edit/:id">
@@ -39,7 +30,7 @@ function App() {
             <Delete />
           </Route>
           <Route path="/">
-            <Home />
+            <Home tasks={tasks} />
           </Route>
         </Switch>
       </div>

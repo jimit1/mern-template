@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 import Form from "../Form/Form";
+import Card from "../Card/Card";
 
 const Home = (props) => {
   console.log(props.tasks);
@@ -8,45 +9,31 @@ const Home = (props) => {
     spaceTop: {
       paddingTop: "30px",
     },
-
-    button: {
-      marginRight: "10px",
-      width: "80px",
-    },
   };
+
+  useEffect(() => {
+    props.setTodos();
+  }, []);
 
   return (
     <div className="container" style={styles.spaceTop}>
       <div className="row">
-        <Form />
-        {/* Tasks display */}
+        <div className="col m12 l6">
+          <Form setTodos={props.setTodos} />
+        </div>
         <div className="col m12 l6">
           {!props.tasks
             ? null
-            : props.tasks.map((task) => (
-                <div className="card ">
-                  <div className="card-content">
-                    <span className="card-title">Todo item</span>
-                    <p>{task.text}</p>
-                  </div>
-                  <div className="card-action">
-                    <div className="input-field">
-                      <button
-                        className="btn waves-effect waves-light green"
-                        style={styles.button}
-                      >
-                        edit
-                      </button>
-                      <button
-                        className="btn waves-effect waves-light red"
-                        style={styles.button}
-                      >
-                        delete
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              ))}
+            : props.tasks
+                .reverse()
+                .map((task, id) => (
+                  <Card
+                    key={id}
+                    taskId={task._id}
+                    title="Todo Item"
+                    text={task.text}
+                  />
+                ))}
         </div>
       </div>
     </div>

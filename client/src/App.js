@@ -10,11 +10,16 @@ import Nav from "./components/Nav/Nav";
 
 function App() {
   const [tasks, setTasks] = useState();
-  useEffect(() => {
+
+  const setTodos = () => {
     axios
       .get("/all")
       .then((response) => setTasks(response.data))
       .catch((err) => console.log(err));
+  };
+
+  useEffect(() => {
+    setTodos();
   }, []);
 
   return (
@@ -30,7 +35,7 @@ function App() {
             <Delete />
           </Route>
           <Route path="/">
-            <Home tasks={tasks} />
+            <Home setTodos={setTodos} tasks={tasks} />
           </Route>
         </Switch>
       </div>

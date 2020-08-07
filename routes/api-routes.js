@@ -6,12 +6,20 @@ router.get("/example", (req, res) => {
   res.send("message from back end: success");
 });
 
+router.get("/find/:id", (req, res) => {
+  db.Todo.findById(req.params.id).then((todo) => res.send(todo));
+});
+
 router.get("/all", (req, res) => {
-  db.Todo.find().then(todos => res.send(todos));
+  db.Todo.find().then((todos) => res.send(todos));
 });
 
 router.post("/new", (req, res) => {
-  db.Todo.create({ text: req.body.text }).then(todo => res.send(todo));
+  db.Todo.create({ text: req.body.text }).then((todo) => res.send(todo));
+});
+
+router.delete("/remove/:id", (req, res) => {
+  db.Todo.findByIdAndRemove(req.params.id).then(() => res.send("success"));
 });
 
 module.exports = router;

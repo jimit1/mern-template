@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 
-const Form = () => {
+const Form = (props) => {
   const [state, setState] = useState();
   const handleChange = (e) => {
     // const text = e.target.value;
@@ -11,10 +11,10 @@ const Form = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    axios.post("/new", { text: state.text }).then((res) => console.log(res));
+    axios.post("/new", { text: state.text }).then((res) => props.setTodos());
   };
   return (
-    <form className="col m12 l6" onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit}>
       <div className="input-field">
         <input
           id={"text"}

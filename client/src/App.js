@@ -29,7 +29,7 @@ function App() {
 
         <Switch>
           <Route path="/edit/:id">
-            <Edit />
+            <Edit setTodos={setTodos} />
           </Route>
           <Route path="/delete/:id">
             <Delete />

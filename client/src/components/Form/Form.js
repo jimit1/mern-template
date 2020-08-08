@@ -4,15 +4,14 @@ import axios from "axios";
 const Form = (props) => {
   const [state, setState] = useState();
   const handleChange = (e) => {
-    // const text = e.target.value;
     setState({ ...state, [e.target.name]: e.target.value });
-    console.log(state);
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    axios.post("/new", { text: state.text }).then((res) => props.setTodos());
+    axios.post("/new", { text: state.text }).then(() => props.setTodos());
   };
+
   return (
     <form onSubmit={handleSubmit}>
       <div className="input-field">

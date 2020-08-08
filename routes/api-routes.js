@@ -22,4 +22,10 @@ router.delete("/remove/:id", (req, res) => {
   db.Todo.findByIdAndRemove(req.params.id).then(() => res.send("success"));
 });
 
+router.patch("/edit", (req, res) => {
+  db.Todo.findByIdAndUpdate(req.body.id, {
+    text: req.body.text,
+  }).then((result) => res.send(result));
+});
+
 module.exports = router;

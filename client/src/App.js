@@ -13,6 +13,7 @@ function App() {
   const [tasks, setTasks] = useState();
   const [newText, updateNewText] = useState();
   const [editedText, updateEditText] = useState({ editText: "", id: "" });
+  const [deleteText, updateDeleteText] = useState({ deleteText: "" });
 
   const retrieveTasks = () => {
     axios
@@ -30,6 +31,10 @@ function App() {
     axios.post("/new", { text: newText.todoText }).then(() => retrieveTasks());
   };
 
+  const editTextChange = (e) => {
+    updateEditText({ ...editedText, [e.target.name]: e.target.value });
+  };
+
   const editTextSubmit = (e) => {
     e.preventDefault();
     axios
@@ -37,10 +42,6 @@ function App() {
       .catch((err) => {
         console.log(err);
       });
-  };
-
-  const editTextChange = (e) => {
-    updateEditText({ ...editedText, [e.target.name]: e.target.value });
   };
 
   useEffect(() => {
@@ -62,7 +63,7 @@ function App() {
           />
         </Route>
         <Route path="/delete/:id">
-          <Delete />
+          <Delete deleteText={deleteText} updateDeleteText={updateDeleteText} />
         </Route>
         <Route path="/">
           <Home

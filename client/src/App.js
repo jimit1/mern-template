@@ -22,7 +22,6 @@ function App() {
 
   const newTextChange = (e) => {
     updateNewText({ ...newText, [e.target.name]: e.target.value });
-    console.log(newText);
   };
 
   const newTextSubmit = (e) => {
@@ -34,14 +33,13 @@ function App() {
     e.preventDefault();
     axios
       .patch("/edit", { id: editedText.id, text: editedText.editText })
-      .then(() => {
-        console.log("success");
+      .catch((err) => {
+        console.log(err);
       });
   };
 
   const editTextChange = (e) => {
     updateEditText({ ...editedText, [e.target.name]: e.target.value });
-    console.log(editedText);
   };
 
   useEffect(() => {

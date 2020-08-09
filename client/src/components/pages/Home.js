@@ -6,12 +6,6 @@ import Button from "../Button/Button";
 import Container from "../Container/Container";
 
 const Home = (props) => {
-  const styles = {
-    spaceTop: {
-      paddingTop: "30px",
-    },
-  };
-
   const history = useHistory();
 
   useEffect(() => {

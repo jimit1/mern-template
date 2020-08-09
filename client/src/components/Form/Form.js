@@ -1,28 +1,18 @@
-import React, { useState } from "react";
-import axios from "axios";
+import React from "react";
 
 const Form = (props) => {
-  const [state, setState] = useState();
-  const handleChange = (e) => {
-    setState({ ...state, [e.target.name]: e.target.value });
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    axios.post("/new", { text: state.text }).then(() => props.setTodos());
-  };
-
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={props.handleSubmit}>
       <div className="input-field">
         <input
           id={"text"}
           type={"text"}
           className={"validate input-large"}
-          name={"text"}
-          onChange={handleChange}
+          value={props.textValue}
+          name={props.inputName}
+          onChange={props.handleChange}
         />
-        <label htmlFor="text">Text</label>
+        {props.textValue ? null : <label htmlFor="text">Text</label>}
         <span
           className="helper-text"
           data-error="wrong"

@@ -2,85 +2,55 @@ import React, { useState } from "react";
 import { useParams, useHistory } from "react-router-dom";
 import { useEffect } from "react";
 import axios from "axios";
+import Form from "../Form/Form";
+import Card from "../Card/Card";
+import Button from "../Button/Button";
 
-const About = (props) => {
+const Edit = (props) => {
   let { id } = useParams();
-  const [task, setTask] = useState({ text: "", id: id });
+  const [task, setTask] = useState({ editText: "", id: id });
 
   useEffect(() => {
-    axios.get(`/find/${id}`).then((res) => {
-      setTask({ ...task, text: res.data.text });
-    });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    axios
+      .get(`/find/${id}`)
+      .then((res) => {
+        setTask({ id: id, editText: res.data.text });
+      })
+      .catch((err) => console.log(err));
+  }, [id]);
 
-  const editTask = () => {
-    axios.patch("/edit", { id: task.id, text: task.text }).then(() => {
-      props.setTodos();
+  const editTextSubmit = () => {
+    axios.patch("/edit", { id: task.id, text: task.editText }).then(() => {
+      props.showTodos();
       history.push("/");
     });
   };
 
-  const handleChange = (e) => {
+  const editTextChange = (e) => {
     setTask({ ...task, [e.target.name]: e.target.value });
-  };
-
-  const styles = {
-    button: {
-      marginRight: "10px",
-      width: "80px",
-    },
+    console.log(task);
   };
 
   const history = useHistory();
 
   return (
     <div className="container">
-      <h1>Are you sure?</h1>
-      <div className="card ">
-        <div className="card-content">
-          <span className="card-title">Editing:</span>
-          <form>
-            <div className="input-field">
-              <input
-                id={"text"}
-                type={"text"}
-                value={task.text}
-                className={"validate input-large"}
-                name={"text"}
-                onChange={handleChange}
-              />
-              <span
-                className="helper-text"
-                data-error="wrong"
-                data-success="submitted"
-              >
-                Press Enter to submit
-              </span>
-            </div>
-          </form>
-        </div>
-        <div className="card-action">
-          <div className="input-field">
-            <button
-              className="btn waves-effect waves-light teal"
-              style={styles.button}
-              onClick={() => history.push("/")}
-            >
-              cancel
-            </button>
-            <button
-              className="btn waves-effect waves-light red"
-              style={styles.button}
-              onClick={() => editTask()}
-            >
-              edit
-            </button>
-          </div>
-        </div>
-      </div>
+      <Card
+        title="Editing: are you sure?"
+        form={
+          <Form
+            textValue={task.editText}
+            inputName={"editText"}
+            handleChange={editTextChange}
+            handleSubmit={editTextSubmit}
+          />
+        }
+      >
+        <Button color="grey" text="Cancel" click={() => history.push(`/`)} />
+        <Button color="red" text="Submit" click={editTextSubmit} />
+      </Card>
     </div>
   );
 };
 
-export default About;
+export default Edit;

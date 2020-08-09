@@ -10,8 +10,19 @@ import Nav from "./components/Nav/Nav";
 
 function App() {
   const [tasks, setTasks] = useState();
+  const [newText, updateText] = useState();
 
-  const setTodos = () => {
+  const newTextChange = (e) => {
+    updateText({ ...newText, [e.target.name]: e.target.value });
+    console.log(newText);
+  };
+
+  const newTextSubmit = (e) => {
+    e.preventDefault();
+    axios.post("/new", { text: newText.todoText }).then(() => showTodos());
+  };
+
+  const showTodos = () => {
     axios
       .get("/all")
       .then((response) => setTasks(response.data))
@@ -19,23 +30,34 @@ function App() {
   };
 
   useEffect(() => {
-    setTodos();
+    showTodos();
   }, []);
 
   return (
     <Router>
       <div>
-        <Nav links={[<Link to="/">Home</Link>, <Link to="/">About</Link>]} />
+        <Nav
+          links={[
+            <Link to="/">Home</Link>,
+            <Link to="/about">About</Link>,
+            <Link to="/contact">Contact</Link>,
+          ]}
+        />
 
         <Switch>
           <Route path="/edit/:id">
-            <Edit setTodos={setTodos} />
+            <Edit showTodos={showTodos} />
           </Route>
           <Route path="/delete/:id">
             <Delete />
           </Route>
           <Route path="/">
-            <Home setTodos={setTodos} tasks={tasks} />
+            <Home
+              showTodos={showTodos}
+              tasks={tasks}
+              newTextChange={newTextChange}
+              newTextSubmit={newTextSubmit}
+            />
           </Route>
         </Switch>
       </div>

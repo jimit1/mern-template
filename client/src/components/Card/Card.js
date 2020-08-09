@@ -1,39 +1,23 @@
 import React from "react";
-import { useHistory } from "react-router-dom";
+import Form from "../Form/Form";
 
 const Card = (props) => {
-  const styles = {
-    button: {
-      marginRight: "10px",
-      width: "80px",
-    },
+  const renderContent = () => {
+    if (props.form) {
+      return props.form;
+    } else {
+      return <p>{props.text}</p>;
+    }
   };
-
-  const history = useHistory();
 
   return (
     <div className="card ">
       <div className="card-content">
         <span className="card-title">{props.title}</span>
-        <p>{props.text}</p>
+        {renderContent()}
       </div>
       <div className="card-action">
-        <div className="input-field">
-          <button
-            className="btn waves-effect waves-light teal"
-            style={styles.button}
-            onClick={() => history.push(`/edit/${props.taskId}`)}
-          >
-            edit
-          </button>
-          <button
-            className="btn waves-effect waves-light red"
-            style={styles.button}
-            onClick={() => history.push(`/delete/${props.taskId}`)}
-          >
-            delete
-          </button>
-        </div>
+        <div className="input-field">{props.children}</div>
       </div>
     </div>
   );

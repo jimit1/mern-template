@@ -2,6 +2,8 @@ import React from "react";
 import { useParams, useHistory } from "react-router-dom";
 import axios from "axios";
 import { useState, useEffect } from "react";
+import Card from "../Card/Card";
+import Button from "../Button/Button";
 
 const Delete = () => {
   const styles = {
@@ -18,39 +20,32 @@ const Delete = () => {
   const [task, setTask] = useState({ text: "" });
 
   useEffect(() => {
-    axios.get(`/find/${id}`).then((res) => setTask(res.data));
+    axios
+      .get(`/find/${id}`)
+      .then((res) => {
+        setTask(res.data);
+      })
+      .catch((err) => console.log(err));
   }, [id]);
 
   return (
     <div className="container">
-      <div className="card ">
-        <div className="card-content">
-          <span className="card-title">Are you sure you want to delete?</span>
-          <p>{task.text}</p>
-        </div>
-        <div className="card-action">
-          <div className="input-field">
-            <button
-              className="btn waves-effect waves-light teal"
-              style={styles.button}
-              onClick={() => history.push("/")}
-            >
-              cancel
-            </button>
-            <button
-              className="btn waves-effect waves-light red"
-              style={styles.button}
-              onClick={() => {
-                axios
-                  .delete(`/remove/${task._id}`)
-                  .then(() => history.push("/"));
-              }}
-            >
-              delete
-            </button>
-          </div>
-        </div>
-      </div>
+      <Card title="Deleting: Are you sure?" text={task.text}>
+        <Button
+          color="teal"
+          text="cancel"
+          click={() => {
+            history.push("/");
+          }}
+        />
+        <Button
+          color="red"
+          text="delete"
+          click={() => {
+            axios.delete(`/remove/${task._id}`).then(() => history.push("/"));
+          }}
+        />
+      </Card>
     </div>
   );
 };

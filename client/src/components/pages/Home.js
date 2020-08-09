@@ -1,40 +1,51 @@
-import React, { useEffect } from "react";
-
+import React, { useEffect, useState } from "react";
+import { useHistory } from "react-router-dom";
+import axios from "axios";
 import Form from "../Form/Form";
 import Card from "../Card/Card";
+import Button from "../Button/Button";
 
 const Home = (props) => {
-  console.log(props.tasks);
   const styles = {
     spaceTop: {
       paddingTop: "30px",
     },
   };
 
+  const history = useHistory();
+
   useEffect(() => {
-    props.setTodos();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    const showTodos = props.showTodos;
+    showTodos();
+  }, [props.showTodos]);
 
   return (
     <div className="container" style={styles.spaceTop}>
       <div className="row">
         <div className="col m12 l6">
-          <Form setTodos={props.setTodos} />
+          <Form
+            inputName={"todoText"}
+            handleChange={props.newTextChange}
+            handleSubmit={props.newTextSubmit}
+          />
         </div>
         <div className="col m12 l6">
           {!props.tasks
             ? null
-            : props.tasks
-                .reverse()
-                .map((task, id) => (
-                  <Card
-                    key={id}
-                    taskId={task._id}
-                    title="Todo Item"
-                    text={task.text}
+            : props.tasks.map((task, id) => (
+                <Card key={id} title="Todo Item" text={task.text}>
+                  <Button
+                    color="teal"
+                    text="edit"
+                    click={() => history.push(`/edit/${task._id}`)}
                   />
-                ))}
+                  <Button
+                    color="red"
+                    text="delete"
+                    click={() => history.push(`/delete/${task._id}`)}
+                  />
+                </Card>
+              ))}
         </div>
       </div>
     </div>

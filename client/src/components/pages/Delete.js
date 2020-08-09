@@ -2,9 +2,9 @@ import React from "react";
 import { useParams, useHistory } from "react-router-dom";
 import axios from "axios";
 import { useState, useEffect } from "react";
-import Card from "../card/card";
-import Button from "../button/button";
-import Container from "../container/container";
+import Card from "../Card/Card";
+import Button from "../Button/Button";
+import Container from "../Container/Container";
 
 const Delete = () => {
   const history = useHistory();

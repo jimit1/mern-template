@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
 import { useHistory } from "react-router-dom";
-import Form from "../Form/Form";
-import Card from "../Card/Card";
-import Button from "../Button/Button";
-import Container from "../Container/Container";
+import Form from "../form/Form";
+import Card from "../card/Card";
+import Button from "../button/Button";
+import Container from "../container/Container";
 
 const Home = (props) => {
   const history = useHistory();

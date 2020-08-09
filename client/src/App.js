@@ -48,34 +48,30 @@ function App() {
 
   return (
     <Router>
-      <>
-        <Nav
-          links={[<Link to="/">Home</Link>, <Link to="/about">About</Link>]}
-        />
+      <Nav links={[<Link to="/">Home</Link>, <Link to="/about">About</Link>]} />
 
-        <Switch>
-          <Route path="/edit/:id">
-            <Edit
-              updateEditText={updateEditText}
-              editTextChange={editTextChange}
-              editTextSubmit={editTextSubmit}
-              retrieveTasks={retrieveTasks}
-              editedText={editedText}
-            />
-          </Route>
-          <Route path="/delete/:id">
-            <Delete />
-          </Route>
-          <Route path="/">
-            <Home
-              retrieveTasks={retrieveTasks}
-              tasks={tasks}
-              newTextChange={newTextChange}
-              newTextSubmit={newTextSubmit}
-            />
-          </Route>
-        </Switch>
-      </>
+      <Switch>
+        <Route path="/edit/:id">
+          <Edit
+            updateEditText={updateEditText}
+            editTextChange={editTextChange}
+            editTextSubmit={editTextSubmit}
+            retrieveTasks={retrieveTasks}
+            editedText={editedText}
+          />
+        </Route>
+        <Route path="/delete/:id">
+          <Delete />
+        </Route>
+        <Route path="/">
+          <Home
+            retrieveTasks={retrieveTasks}
+            tasks={tasks}
+            newTextChange={newTextChange}
+            newTextSubmit={newTextSubmit}
+          />
+        </Route>
+      </Switch>
     </Router>
   );
 }

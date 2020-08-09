@@ -3,6 +3,7 @@ import { useHistory } from "react-router-dom";
 import Form from "../Form/Form";
 import Card from "../Card/Card";
 import Button from "../Button/Button";
+import Container from "../Container/Container";
 
 const Home = (props) => {
   const styles = {
@@ -38,7 +39,7 @@ const Home = (props) => {
   };
 
   return (
-    <div className="container" style={styles.spaceTop}>
+    <Container>
       <div className="row">
         <div className="col m12 l6">
           <Form
@@ -49,7 +50,7 @@ const Home = (props) => {
         </div>
         <div className="col m12 l6">{!props.tasks ? null : showTasks()}</div>
       </div>
-    </div>
+    </Container>
   );
 };
 

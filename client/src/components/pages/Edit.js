@@ -5,6 +5,7 @@ import axios from "axios";
 import Form from "../Form/Form";
 import Card from "../Card/Card";
 import Button from "../Button/Button";
+import Container from "../Container/Container";
 
 const Edit = (props) => {
   let { id } = useParams();
@@ -23,7 +24,7 @@ const Edit = (props) => {
   const history = useHistory();
 
   return (
-    <div className="container">
+    <Container>
       <Card
         title="Editing: are you sure?"
         form={
@@ -48,7 +49,7 @@ const Edit = (props) => {
           }}
         />
       </Card>
-    </div>
+    </Container>
   );
 };
 

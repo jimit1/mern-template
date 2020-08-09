@@ -4,6 +4,7 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import Card from "../Card/Card";
 import Button from "../Button/Button";
+import Container from "../Container/Container";
 
 const Delete = () => {
   const history = useHistory();
@@ -22,7 +23,7 @@ const Delete = () => {
   }, [id]);
 
   return (
-    <div className="container">
+    <Container>
       <Card title="Deleting: Are you sure?" text={task.text}>
         <Button
           color="teal"
@@ -39,7 +40,7 @@ const Delete = () => {
           }}
         />
       </Card>
-    </div>
+    </Container>
   );
 };
 

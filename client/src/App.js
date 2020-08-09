@@ -3,9 +3,9 @@ import "./App.css";
 import axios from "axios";
 
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
-import Edit from "./components/pages/Edit";
-import Delete from "./components/pages/Delete";
-import Home from "./components/pages/Home";
+import Edit from "./components/Pages/Edit";
+import Delete from "./components/Pages/Delete";
+import Home from "./components/Pages/Home";
 import Nav from "./components/Nav/Nav";
 
 function App() {
@@ -52,11 +52,7 @@ function App() {
     <Router>
       <>
         <Nav
-          links={[
-            <Link to="/">Home</Link>,
-            <Link to="/about">About</Link>,
-            <Link to="/contact">Contact</Link>,
-          ]}
+          links={[<Link to="/">Home</Link>, <Link to="/about">About</Link>]}
         />
 
         <Switch>

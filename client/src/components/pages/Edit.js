@@ -2,10 +2,10 @@ import React from "react";
 import { useParams, useHistory } from "react-router-dom";
 import { useEffect } from "react";
 import axios from "axios";
-import Form from "../form/Form";
-import Card from "../card/Card";
-import Button from "../button/Button";
-import Container from "../container/Container";
+import Form from "../form/form";
+import Card from "../card/card";
+import Button from "../button/button";
+import Container from "../container/container";
 
 const Edit = (props) => {
   let { id } = useParams();

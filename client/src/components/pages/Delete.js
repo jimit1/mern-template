@@ -6,13 +6,6 @@ import Card from "../Card/Card";
 import Button from "../Button/Button";
 
 const Delete = () => {
-  const styles = {
-    button: {
-      marginRight: "10px",
-      width: "80px",
-    },
-  };
-
   const history = useHistory();
 
   let { id } = useParams();

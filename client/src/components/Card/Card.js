@@ -1,5 +1,4 @@
 import React from "react";
-import Form from "../Form/Form";
 
 const Card = (props) => {
   const renderContent = () => {

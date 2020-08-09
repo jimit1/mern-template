@@ -10,32 +10,47 @@ import Nav from "./components/Nav/Nav";
 
 function App() {
   const [tasks, setTasks] = useState();
-  const [newText, updateText] = useState();
+  const [newText, updateNewText] = useState();
+  const [editedText, updateEditText] = useState({ editText: "", id: "" });
 
-  const newTextChange = (e) => {
-    updateText({ ...newText, [e.target.name]: e.target.value });
-    console.log(newText);
-  };
-
-  const newTextSubmit = (e) => {
-    e.preventDefault();
-    axios.post("/new", { text: newText.todoText }).then(() => showTodos());
-  };
-
-  const showTodos = () => {
+  const retrieveTasks = () => {
     axios
       .get("/all")
       .then((response) => setTasks(response.data))
       .catch((err) => console.log(err));
   };
 
+  const newTextChange = (e) => {
+    updateNewText({ ...newText, [e.target.name]: e.target.value });
+    console.log(newText);
+  };
+
+  const newTextSubmit = (e) => {
+    e.preventDefault();
+    axios.post("/new", { text: newText.todoText }).then(() => retrieveTasks());
+  };
+
+  const editTextSubmit = (e) => {
+    e.preventDefault();
+    axios
+      .patch("/edit", { id: editedText.id, text: editedText.editText })
+      .then(() => {
+        console.log("success");
+      });
+  };
+
+  const editTextChange = (e) => {
+    updateEditText({ ...editedText, [e.target.name]: e.target.value });
+    console.log(editedText);
+  };
+
   useEffect(() => {
-    showTodos();
+    retrieveTasks();
   }, []);
 
   return (
     <Router>
-      <div>
+      <>
         <Nav
           links={[
             <Link to="/">Home</Link>,
@@ -46,21 +61,27 @@ function App() {
 
         <Switch>
           <Route path="/edit/:id">
-            <Edit showTodos={showTodos} />
+            <Edit
+              updateEditText={updateEditText}
+              editTextChange={editTextChange}
+              editTextSubmit={editTextSubmit}
+              retrieveTasks={retrieveTasks}
+              editedText={editedText}
+            />
           </Route>
           <Route path="/delete/:id">
             <Delete />
           </Route>
           <Route path="/">
             <Home
-              showTodos={showTodos}
+              retrieveTasks={retrieveTasks}
               tasks={tasks}
               newTextChange={newTextChange}
               newTextSubmit={newTextSubmit}
             />
           </Route>
         </Switch>
-      </div>
+      </>
     </Router>
   );
 }

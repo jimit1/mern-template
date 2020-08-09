@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useHistory } from "react-router-dom";
-import axios from "axios";
 import Form from "../Form/Form";
 import Card from "../Card/Card";
 import Button from "../Button/Button";
@@ -15,9 +14,28 @@ const Home = (props) => {
   const history = useHistory();
 
   useEffect(() => {
-    const showTodos = props.showTodos;
-    showTodos();
-  }, [props.showTodos]);
+    const retrieveTasks = props.retrieveTasks;
+    retrieveTasks();
+  }, [props.retrieveTasks]);
+
+  const showTasks = () => {
+    const arr = props.tasks.map((task, id) => (
+      <Card key={id} title="Todo Item" text={task.text}>
+        <Button
+          color="teal"
+          text="edit"
+          click={() => history.push(`/edit/${task._id}`)}
+        />
+        <Button
+          color="red"
+          text="delete"
+          click={() => history.push(`/delete/${task._id}`)}
+        />
+      </Card>
+    ));
+
+    return arr.reverse();
+  };
 
   return (
     <div className="container" style={styles.spaceTop}>
@@ -29,24 +47,7 @@ const Home = (props) => {
             handleSubmit={props.newTextSubmit}
           />
         </div>
-        <div className="col m12 l6">
-          {!props.tasks
-            ? null
-            : props.tasks.map((task, id) => (
-                <Card key={id} title="Todo Item" text={task.text}>
-                  <Button
-                    color="teal"
-                    text="edit"
-                    click={() => history.push(`/edit/${task._id}`)}
-                  />
-                  <Button
-                    color="red"
-                    text="delete"
-                    click={() => history.push(`/delete/${task._id}`)}
-                  />
-                </Card>
-              ))}
-        </div>
+        <div className="col m12 l6">{!props.tasks ? null : showTasks()}</div>
       </div>
     </div>
   );

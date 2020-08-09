@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { useParams, useHistory } from "react-router-dom";
 import { useEffect } from "react";
 import axios from "axios";
@@ -8,28 +8,17 @@ import Button from "../Button/Button";
 
 const Edit = (props) => {
   let { id } = useParams();
-  const [task, setTask] = useState({ editText: "", id: id });
 
   useEffect(() => {
+    const updateEditText = props.updateEditText;
+
     axios
       .get(`/find/${id}`)
       .then((res) => {
-        setTask({ id: id, editText: res.data.text });
+        updateEditText({ id: id, editText: res.data.text });
       })
       .catch((err) => console.log(err));
-  }, [id]);
-
-  const editTextSubmit = () => {
-    axios.patch("/edit", { id: task.id, text: task.editText }).then(() => {
-      props.showTodos();
-      history.push("/");
-    });
-  };
-
-  const editTextChange = (e) => {
-    setTask({ ...task, [e.target.name]: e.target.value });
-    console.log(task);
-  };
+  }, [id, props.updateEditText]);
 
   const history = useHistory();
 
@@ -39,15 +28,25 @@ const Edit = (props) => {
         title="Editing: are you sure?"
         form={
           <Form
-            textValue={task.editText}
+            textValue={props.editedText.editText}
             inputName={"editText"}
-            handleChange={editTextChange}
-            handleSubmit={editTextSubmit}
+            handleChange={props.editTextChange}
+            handleSubmit={(e) => {
+              props.editTextSubmit(e);
+              history.push("/");
+            }}
           />
         }
       >
         <Button color="grey" text="Cancel" click={() => history.push(`/`)} />
-        <Button color="red" text="Submit" click={editTextSubmit} />
+        <Button
+          color="red"
+          text="Submit"
+          click={(e) => {
+            props.editTextSubmit(e);
+            history.push("/");
+          }}
+        />
       </Card>
     </div>
   );

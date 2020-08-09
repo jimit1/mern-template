@@ -3,10 +3,11 @@ import "./App.css";
 import axios from "axios";
 
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
-import Edit from "./components/Pages/Edit";
-import Delete from "./components/Pages/Delete";
-import Home from "./components/Pages/Home";
-import Nav from "./components/Nav/Nav";
+
+import Edit from "./components/Pages/Edit.js";
+import Delete from "./components/Pages/Delete.js";
+import Home from "./components/Pages/Home.js";
+import Nav from "./components/Nav/Nav.js";
 
 function App() {
   const [tasks, setTasks] = useState();

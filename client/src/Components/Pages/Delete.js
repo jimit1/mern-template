@@ -12,11 +12,12 @@ const Delete = (props) => {
   let { id } = useParams();
 
   useEffect(() => {
+    const updateDeleteText = props.updateDeleteText;
     axios
       .get(`/find/${id}`)
-      .then((res) => props.updateDeleteText(res.data))
+      .then((res) => updateDeleteText(res.data))
       .catch((err) => console.log(err));
-  }, [id]);
+  }, [id, props.updateDeleteText]);
 
   return (
     <Container>

@@ -8,6 +8,7 @@ import Edit from "./Components/Pages/Edit";
 import Delete from "./Components/Pages/Delete";
 import Home from "./Components/Pages/Home";
 import Nav from "./Components/Nav/Nav";
+import About from "./Components/Pages/About";
 
 function App() {
   const [tasks, setTasks] = useState();
@@ -53,7 +54,7 @@ function App() {
       <Nav links={[<Link to="/">Home</Link>, <Link to="/about">About</Link>]} />
 
       <Switch>
-        <Route path="/edit/:id">
+        <Route exact path="/edit/:id">
           <Edit
             updateEditText={updateEditText}
             editTextChange={editTextChange}
@@ -62,16 +63,19 @@ function App() {
             editedText={editedText}
           />
         </Route>
-        <Route path="/delete/:id">
+        <Route exact path="/delete/:id">
           <Delete deleteText={deleteText} updateDeleteText={updateDeleteText} />
         </Route>
-        <Route path="/">
+        <Route exact path="/">
           <Home
             retrieveTasks={retrieveTasks}
             tasks={tasks}
             newTextChange={newTextChange}
             newTextSubmit={newTextSubmit}
           />
+        </Route>
+        <Route exact path="/about">
+          <About />
         </Route>
       </Switch>
     </Router>

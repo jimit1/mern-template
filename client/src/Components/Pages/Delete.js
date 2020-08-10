@@ -1,7 +1,7 @@
 import React from "react";
 import { useParams, useHistory } from "react-router-dom";
 import axios from "axios";
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import Card from "../Card/Card";
 import Button from "../Button/Button";
 import Container from "../Container/Container";
